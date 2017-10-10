@@ -17,6 +17,8 @@ Submit your answers by modifying this README.md file.
 
 1. (1 points) What is Hadoop 1's single point of failure and why is this critical?  How is this alleviated in Hadoop 2?
 
+Hadoop 2 use YARN for resource allocation and job scheduling. There is a backup NameNode
+
 2. (2 points) What happens when a data node fails?
 
 3. (1 point) What is a daemon?  Describe the role task trackers and job trackers play in the Hadoop environment.
@@ -24,6 +26,8 @@ Submit your answers by modifying this README.md file.
 4. (1 point) Why is Cloudera's VM considered pseudo distributed computing?  How is it different from a true Hadoop cluster computing?
 
 5. (1 point) What is Hadoop streaming? What is the Hadoop Ecosystem?
+
+Hadoop Ecosystem is a series of tools and solutions that makes using the Hadoop framework easier and more user friendly. 
 
 6. (1 point) During a reducer job, why do we need to know the current key, current value, previous key, and cumulative value, but NOT the previous value?
 
