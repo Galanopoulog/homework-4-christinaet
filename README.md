@@ -17,15 +17,29 @@ Submit your answers by modifying this README.md file.
 
 1. (1 points) What is Hadoop 1's single point of failure and why is this critical?  How is this alleviated in Hadoop 2?
 
+The data node is replicated, but the name node is not. If there's a network failure, data will be inaccessible. If a disk on NameNode fails, the metadata may be lost forever. 
+
 Hadoop 2 use YARN for resource allocation and job scheduling. There is a backup NameNode
 
 2. (2 points) What happens when a data node fails?
 
+When a data node fails, the name node marks it as dead and does not forward any new IO requests to it. Any data that was registered to a dead data node is not available to HDFS any more. Data node failure lowers a block's replication factor. The name node constantly tracks which blocks need to be replicated and initiates replication whenever necessary.
+
 3. (1 point) What is a daemon?  Describe the role task trackers and job trackers play in the Hadoop environment.
+
+A daemon is a background process. Hadoop 1.x consists of the following daemons:
+Namenode, Secondary namenode, Jobtracker, Datanode, Tasktracker
+The namenode and jobtracker daemons are master daemons. 
+
+Jobtrackers manage tasktrackers and distribute the work between mappers and reducer. Tasktrackers administer the code (mapper and reducer tasks) on DataNodes. 
 
 4. (1 point) Why is Cloudera's VM considered pseudo distributed computing?  How is it different from a true Hadoop cluster computing?
 
+The full cluster is running only on one machine. True Hadoop cluster computing uses a cluster composed of many computers. 
+
 5. (1 point) What is Hadoop streaming? What is the Hadoop Ecosystem?
+
+Hadoop streaming is an API that allows programmers to write Mappers and Reducers in languages other than Java (i.e. python)
 
 Hadoop Ecosystem is a series of tools and solutions that makes using the Hadoop framework easier and more user friendly. 
 
