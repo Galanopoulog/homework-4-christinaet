@@ -17,9 +17,7 @@ Submit your answers by modifying this README.md file.
 
 1. (1 points) What is Hadoop 1's single point of failure and why is this critical?  How is this alleviated in Hadoop 2?
 
-The data node is replicated, but the name node is not. If there's a network failure, data will be inaccessible. If a disk on NameNode fails, the metadata may be lost forever. 
-
-Hadoop 2 use YARN for resource allocation and job scheduling. There is a backup NameNode
+The data node is replicated, but the name node is not. If there's a network failure, data will be inaccessible. If a disk on name node fails, the metadata may be lost forever. In Hadoop 2, there is a backup name node.
 
 2. (2 points) What happens when a data node fails?
 
@@ -27,7 +25,7 @@ When a data node fails, the name node marks it as dead and does not forward any 
 
 3. (1 point) What is a daemon?  Describe the role task trackers and job trackers play in the Hadoop environment.
 
-A daemon is a background process. Hadoop 1.x consists of the following daemons:
+A daemon is a background process. Hadoop consists of the following daemons:
 Namenode, Secondary namenode, Jobtracker, Datanode, Tasktracker
 The namenode and jobtracker daemons are master daemons. 
 
@@ -44,6 +42,8 @@ Hadoop streaming is an API that allows programmers to write Mappers and Reducers
 Hadoop Ecosystem is a series of tools and solutions that makes using the Hadoop framework easier and more user friendly. 
 
 6. (1 point) During a reducer job, why do we need to know the current key, current value, previous key, and cumulative value, but NOT the previous value?
+
+We need the current and previous keys to determine if we are changing keys. We then add the current value to the cumulative value group by the right key; previous value is not useful in this process.  
 
 7. (3 points) A large international company wants to use Hadoop MapReduce to calculate the # of sales by location by day.  The logs data has one entry per location per day per sale.  Describe how MapReduce will work in this scenario, using key words like: intermediate records, shuffle and sort, mappers, reducers, sort, key/value, task tracker, job tracker.  
 
