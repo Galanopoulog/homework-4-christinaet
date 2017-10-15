@@ -47,6 +47,10 @@ We need the current and previous keys to determine if we are changing keys. We t
 
 7. (3 points) A large international company wants to use Hadoop MapReduce to calculate the # of sales by location by day.  The logs data has one entry per location per day per sale.  Describe how MapReduce will work in this scenario, using key words like: intermediate records, shuffle and sort, mappers, reducers, sort, key/value, task tracker, job tracker.  
 
+Users submit the MapReduce job (input data, MR program, configuration). The input data is split into fixed size chunks. Hadoop divide the job into map and reduce tasks - one map task for each split. Job trackers assign map tasks to individual nodes (usually the one that has/is close to the split data). Task trackers launch mappers that run the map function for each record in the split. Intermediate mapper output are emitted as key-value pairs and written locally. The key is location by day, the value is 1 (number of sales). For example, an intermediate record might look like this: { key : { date: 20170101, store_id : 1}, value : 1 }
+
+The framework shuffles and sorts the intermediate records, and groups them by key. The sorted output is then transferred to the node where task trackers launch reducers. The reduce function accepts sorted mapper output, iterate through each list and sum up the value (sale count) by each key. When there are multiple reducers, each reducer gets one partition of the mapper output. The final output of the reducer(s) is the total number of sales per location per day. 
+
 ### Applied (5 points total)
 
 Submit the mapper.py and reducer.py and the output file (.csv or .txt) for the first question in lesson 6 for Udacity.  (The one labelled "Quiz: Sales per Category")  Instructions for how to get set up is inside the Udacity lectures.  
